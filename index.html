@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aspire Consulting Partners — Practical AI, web hosting, and digital systems for real-world businesses. Founded by Richard Asp.">
+  <title>Aspire Consulting Partners | Practical AI &amp; Technology Consulting</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* ========== Design Tokens ========== */
+    :root {
+      --bg-main: #0f172a;
+      --bg-dark: #020617;
+      --cyan: #38bdf8;
+      --cyan-light: #7dd3fc;
+      --gray-100: #f1f5f9;
+      --gray-300: #cbd5e1;
+      --gray-400: #94a3b8;
+      --gray-500: #64748b;
+      --gray-600: #475569;
+      --gray-700: #334155;
+      --gray-800: #1e293b;
+      --max-width: 1200px;
+      --nav-height: 72px;
+      --font: 'Manrope', system-ui, -apple-system, sans-serif;
+    }
+
+    /* ========== Reset & Base ========== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: var(--nav-height);
+    }
+
+    body {
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--gray-300);
+      background: var(--bg-main);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a {
+      color: var(--cyan);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    a:hover {
+      color: var(--cyan-light);
+    }
+
+    h1, h2, h3, h4 {
+      color: var(--gray-100);
+      line-height: 1.3;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ========== Section Helpers ========== */
+    .section {
+      padding: 80px 0;
+    }
+
+    .section-dark {
+      background: var(--bg-dark);
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--gray-400);
+      max-width: 640px;
+      margin: 0 auto 48px;
+      font-size: 1.05rem;
+    }
+
+    /* ========== Navigation ========== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.08);
+      height: var(--nav-height);
+    }
+
+    .nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .nav-logo {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--gray-100);
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+
+    .nav-logo span {
+      color: var(--cyan);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--gray-400);
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--cyan);
+    }
+
+    /* Hamburger */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--gray-300);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    /* Mobile nav */
+    @media (max-width: 768px) {
+      .nav-toggle {
+        display: flex;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: var(--nav-height);
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: rgba(2, 6, 23, 0.97);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 24px;
+        gap: 0;
+        transform: translateY(-120%);
+        opacity: 0;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        border-bottom: 1px solid var(--gray-800);
+      }
+
+      .nav-links.open {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .nav-links li {
+        border-bottom: 1px solid var(--gray-800);
+      }
+
+      .nav-links li:last-child {
+        border-bottom: none;
+      }
+
+      .nav-links a {
+        display: block;
+        padding: 16px 0;
+        font-size: 1.05rem;
+      }
+
+      .nav-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      .nav-toggle.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .nav-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+    }
+
+    /* ========== Hero ========== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: url('assets/images/background_hero.jpeg') center/cover no-repeat;
+      background-attachment: fixed;
+      padding-top: var(--nav-height);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(15,23,42,0.85) 0%, rgba(15,23,42,0.9) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      text-align: center;
+      max-width: 780px;
+      padding: 40px 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 20px;
+      line-height: 1.25;
+    }
+
+    .hero h1 .highlight {
+      color: var(--cyan);
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      color: var(--gray-400);
+      margin-bottom: 36px;
+      max-width: 620px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      border-radius: 999px;
+      font-family: var(--font);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--cyan), #0ea5e9);
+      color: #fff;
+      box-shadow: 0 4px 24px rgba(56, 189, 248, 0.3);
+    }
+
+    .btn-primary:hover {
+      color: #fff;
+      box-shadow: 0 8px 32px rgba(56, 189, 248, 0.45);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--cyan);
+      border: 2px solid var(--cyan);
+    }
+
+    .btn-secondary:hover {
+      color: var(--cyan-light);
+      border-color: var(--cyan-light);
+      box-shadow: 0 4px 20px rgba(56, 189, 248, 0.15);
+    }
+
+    /* ========== About ========== */
+    .about-lead {
+      font-size: 1.35rem;
+      color: var(--cyan);
+      font-weight: 500;
+      margin-bottom: 24px;
+    }
+
+    .about-text p {
+      margin-bottom: 16px;
+      max-width: 760px;
+    }
+
+    .about-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ========== Cards ========== */
+    .card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--gray-800);
+      border-radius: 12px;
+      padding: 32px;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--cyan);
+      box-shadow: 0 8px 30px rgba(56, 189, 248, 0.12);
+    }
+
+    /* ========== Services ========== */
+    .services-bg {
+      background: var(--bg-main);
+      background-image: radial-gradient(ellipse at top right, rgba(56,189,248,0.06) 0%, transparent 60%);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .service-card-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 12px;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+
+    .service-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+
+    .service-card .service-desc {
+      color: var(--gray-400);
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+    }
+
+    .service-card ul {
+      list-style: none;
+    }
+
+    .service-card ul li {
+      padding: 4px 0;
+      font-size: 0.93rem;
+      color: var(--gray-300);
+    }
+
+    .service-card ul li::before {
+      content: '\2192';
+      color: var(--cyan);
+      margin-right: 8px;
+      font-weight: 700;
+    }
+
+    /* ========== Who I Work With ========== */
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+    }
+
+    .audience-card {
+      text-align: center;
+    }
+
+    .audience-icon {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+    }
+
+    .audience-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    .audience-card p {
+      color: var(--gray-400);
+      font-size: 0.95rem;
+    }
+
+    /* ========== Projects ========== */
+    .projects-bg {
+      background: var(--bg-main);
+      background-image: radial-gradient(ellipse at top right, rgba(56,189,248,0.06) 0%, transparent 60%);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .project-card {
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .project-card-img-wrap {
+      overflow: hidden;
+      height: 200px;
+    }
+
+    .project-card-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+
+    .project-card:hover .project-card-img {
+      transform: scale(1.05);
+    }
+
+    .project-card-body {
+      padding: 24px;
+    }
+
+    .project-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .project-card h3 {
+      font-size: 1.15rem;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .badge-active {
+      background: rgba(34, 197, 94, 0.2);
+      color: #86efac;
+    }
+
+    .badge-planning {
+      background: rgba(148, 163, 184, 0.2);
+      color: var(--gray-400);
+    }
+
+    .project-card p {
+      color: var(--gray-400);
+      font-size: 0.95rem;
+    }
+
+    /* ========== Contact ========== */
+    .contact-form-wrap {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .contact-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--gray-800);
+      border-radius: 16px;
+      padding: 36px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--gray-300);
+      margin-bottom: 6px;
+    }
+
+    .form-group label .req {
+      color: var(--cyan);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--bg-main);
+      border: 1px solid var(--gray-700);
+      border-radius: 8px;
+      color: var(--gray-100);
+      font-family: var(--font);
+      font-size: 0.95rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.12);
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--gray-600);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 24px;
+      margin-top: 6px;
+    }
+
+    .radio-group label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 400;
+      cursor: pointer;
+      margin-bottom: 0;
+    }
+
+    .radio-group input[type="radio"] {
+      width: auto;
+      accent-color: var(--cyan);
+    }
+
+    .btn-submit {
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .contact-alt {
+      text-align: center;
+      margin-top: 24px;
+      color: var(--gray-500);
+      font-size: 0.95rem;
+    }
+
+    .contact-alt a {
+      color: var(--cyan);
+    }
+
+    /* ========== Footer ========== */
+    .footer {
+      background: var(--bg-dark);
+      border-top: 1px solid var(--gray-800);
+      padding: 40px 0;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--gray-500);
+    }
+
+    .footer-links {
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      color: var(--gray-400);
+      font-size: 0.88rem;
+    }
+
+    .footer-links a:hover {
+      color: var(--cyan);
+    }
+
+    .footer-sep {
+      margin: 0 8px;
+      color: var(--gray-700);
+    }
+
+    .footer p {
+      margin-bottom: 6px;
+    }
+
+    .footer-contact a {
+      color: var(--gray-400);
+    }
+
+    .footer-contact a:hover {
+      color: var(--cyan);
+    }
+
+    /* ========== Utilities ========== */
+    @media (max-width: 768px) {
+      .section {
+        padding: 56px 0;
+      }
+
+      .section-title {
+        font-size: 1.65rem;
+      }
+
+      .hero h1 {
+        font-size: 1.75rem;
+      }
+    }
+
+    /* Reduce motion for accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      .card, .btn, .project-card-img, .nav-links {
+        transition: none;
+      }
+    }
+
+    /* Fixed background fallback for iOS */
+    @supports (-webkit-touch-callout: none) {
+      .hero {
+        background-attachment: scroll;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== Navigation ========== -->
+  <header class="nav" role="banner">
+    <div class="container">
+      <a href="#" class="nav-logo" aria-label="Aspire Consulting Partners home"><span>AC</span> Aspire Consulting Partners</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav aria-label="Main navigation">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ========== Hero ========== -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Practical AI, web hosting, and digital systems for <span class="highlight">real-world businesses</span></h1>
+        <p class="hero-sub">Decades of hands-on experience with cPanel, hosting infrastructure, and AI implementation. No hype, no buzzwords &mdash; just practical guidance that works.</p>
+        <div class="hero-buttons">
+          <a href="#contact" class="btn btn-primary">Book a Discovery Call</a>
+          <a href="#about" class="btn btn-secondary">Learn More</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== About ========== -->
+    <section id="about" class="section section-dark">
+      <div class="container">
+        <h2 class="section-title">About Aspire</h2>
+        <div class="about-text" style="max-width:760px; margin:0 auto;">
+          <p class="about-lead">Technology should serve people, not the other way around.</p>
+          <p>I'm Richard Asp, and I founded Aspire Consulting Partners to help small businesses navigate the increasingly complex world of technology &mdash; particularly AI &mdash; without the hype or confusion.</p>
+          <p>With decades of experience, including founding AOSoft.com and spending 9+ years at cPanel, I've seen technology transform businesses from the inside out. Today, I focus on practical AI implementation, web hosting guidance, and digital systems that actually work for real-world businesses.</p>
+          <p>My approach is simple: understand your needs, recommend solutions that fit your budget and goals, and provide ongoing support without the corporate overhead. Whether you're exploring AI for the first time or need guidance on hosting infrastructure, I bring hands-on experience and honest advice.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Services ========== -->
+    <section id="services" class="section services-bg">
+      <div class="container">
+        <h2 class="section-title">Services</h2>
+        <p class="section-subtitle">Practical solutions for real-world business challenges</p>
+        <div class="services-grid">
+
+          <div class="card service-card">
+            <img src="assets/images/service.jpeg" alt="AI strategy consultation session" class="service-card-img" width="120" height="120" loading="lazy">
+            <h3>AI Strategy &amp; Automation</h3>
+            <p class="service-desc">Navigate the AI landscape with practical guidance</p>
+            <ul>
+              <li>Identify AI opportunities for your business</li>
+              <li>Plan realistic implementation roadmaps</li>
+              <li>Avoid common pitfalls and overhyped solutions</li>
+              <li>Ongoing support as you adopt AI tools</li>
+            </ul>
+          </div>
+
+          <div class="card service-card">
+            <img src="assets/images/webhosting_service.jpeg" alt="Web hosting server infrastructure" class="service-card-img" width="120" height="120" loading="lazy">
+            <h3>Web Hosting &amp; Infrastructure</h3>
+            <p class="service-desc">Expert guidance from years of cPanel experience</p>
+            <ul>
+              <li>Hosting platform selection and migration</li>
+              <li>Email and DNS configuration</li>
+              <li>Performance optimization</li>
+              <li>Security best practices</li>
+            </ul>
+          </div>
+
+          <div class="card service-card">
+            <img src="assets/images/email_sms_services.jpeg" alt="Email and SMS communication systems" class="service-card-img" width="120" height="120" loading="lazy">
+            <h3>Email &amp; SMS Systems</h3>
+            <p class="service-desc">Reliable communication infrastructure setup</p>
+            <ul>
+              <li>Email system integration and configuration</li>
+              <li>SMS workflow automation</li>
+              <li>Deliverability best practices</li>
+              <li>Compliance and security guidance</li>
+            </ul>
+          </div>
+
+          <div class="card service-card">
+            <img src="assets/images/ai_training_services.jpeg" alt="AI training workshop in progress" class="service-card-img" width="120" height="120" loading="lazy">
+            <h3>Training &amp; Support</h3>
+            <p class="service-desc">Empower your team with knowledge and confidence</p>
+            <ul>
+              <li>Team workshops and lunch-and-learns</li>
+              <li>AI tool adoption training</li>
+              <li>Ongoing technical support</li>
+              <li>Documentation and knowledge transfer</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Who I Work With ========== -->
+    <section class="section section-dark">
+      <div class="container">
+        <h2 class="section-title">Who I Work With</h2>
+        <p class="section-subtitle">I specialize in helping businesses that value practical solutions over flashy promises. No technical background needed &mdash; just a willingness to learn and grow.</p>
+        <div class="audience-grid">
+
+          <div class="card audience-card">
+            <div class="audience-icon" aria-hidden="true">&#127970;</div>
+            <h3>Small Businesses</h3>
+            <p>5&ndash;50 employees looking to leverage technology without breaking the bank</p>
+          </div>
+
+          <div class="card audience-card">
+            <div class="audience-icon" aria-hidden="true">&#128100;</div>
+            <h3>Solo Founders &amp; Entrepreneurs</h3>
+            <p>Building your business and need reliable technical guidance</p>
+          </div>
+
+          <div class="card audience-card">
+            <div class="audience-icon" aria-hidden="true">&#128101;</div>
+            <h3>Teams Exploring AI</h3>
+            <p>Organizations ready to adopt AI but unsure where to start</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Projects ========== -->
+    <section id="projects" class="section projects-bg">
+      <div class="container">
+        <h2 class="section-title">Current Projects</h2>
+        <p class="section-subtitle">What I'm working on and exploring right now</p>
+        <div class="projects-grid">
+
+          <div class="card project-card">
+            <div class="project-card-img-wrap">
+              <img src="assets/images/policy-keeper_thumnail.jpeg" alt="PolicyKeeper.ai document management dashboard" class="project-card-img" loading="lazy">
+            </div>
+            <div class="project-card-body">
+              <div class="project-card-header">
+                <h3>PolicyKeeper.ai</h3>
+                <span class="badge badge-active">Active</span>
+              </div>
+              <p>AI-powered policy and document management system for small businesses</p>
+            </div>
+          </div>
+
+          <div class="card project-card">
+            <div class="project-card-img-wrap">
+              <img src="assets/images/silversupport_thumnail.jpeg" alt="SilverSupport helpdesk for seniors" class="project-card-img" loading="lazy">
+            </div>
+            <div class="project-card-body">
+              <div class="project-card-header">
+                <h3>SilverSupport</h3>
+                <span class="badge badge-active">Active</span>
+              </div>
+              <p>AI tools and helpdesk designed for seniors and their caregivers</p>
+            </div>
+          </div>
+
+          <div class="card project-card">
+            <div class="project-card-img-wrap">
+              <img src="assets/images/ai_education_thumbnail.jpeg" alt="AI education workshop materials" class="project-card-img" loading="lazy">
+            </div>
+            <div class="project-card-body">
+              <div class="project-card-header">
+                <h3>AI Education Programs</h3>
+                <span class="badge badge-planning">Planning</span>
+              </div>
+              <p>Workshops and training to help teams understand and adopt AI effectively</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Contact ========== -->
+    <section id="contact" class="section section-dark">
+      <div class="container">
+        <h2 class="section-title">Get in Touch</h2>
+        <p class="section-subtitle">Ready to explore how AI and technology can help your business? Let's start a conversation.</p>
+        <div class="contact-form-wrap">
+          <form id="contactForm" class="contact-card" action="mailto:info@aspireconsultingpartners.com" method="POST" enctype="text/plain" novalidate>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Your name" maxlength="100" autocomplete="name">
+              </div>
+              <div class="form-group">
+                <label for="email">Email <span class="req">*</span></label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="org">Business or Organization</label>
+              <input type="text" id="org" name="organization" placeholder="Your company (optional)" maxlength="100" autocomplete="organization">
+            </div>
+
+            <div class="form-group">
+              <label for="message">How can I help? <span class="req">*</span></label>
+              <textarea id="message" name="message" rows="6" placeholder="Tell me about your project, questions, or what you're hoping to achieve..." required minlength="10" maxlength="5000"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Preferred contact method</label>
+              <div class="radio-group">
+                <label><input type="radio" name="contact_method" value="Email" checked> Email</label>
+                <label><input type="radio" name="contact_method" value="Phone"> Phone</label>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-submit">Send Message</button>
+          </form>
+          <p class="contact-alt">Or email me directly at <a href="mailto:info@aspireconsultingpartners.com">info@aspireconsultingpartners.com</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========== Footer ========== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <span class="footer-sep">&middot;</span>
+        <a href="terms.html">Terms of Service</a>
+        <span class="footer-sep">&middot;</span>
+        <a href="disclaimer.html">Disclaimer</a>
+      </div>
+      <p>&copy; 2026 Aspire Consulting Partners LLC. All rights reserved.</p>
+      <p class="footer-contact">
+        <a href="mailto:info@aspireconsultingpartners.com">info@aspireconsultingpartners.com</a>
+        <span class="footer-sep">|</span>
+        <a href="tel:+12818839343">281-883-9343</a>
+      </p>
+      <p>Sarasota, Florida</p>
+    </div>
+  </footer>
+
+  <!-- ========== JavaScript ========== -->
+  <script>
+    (function () {
+      // Mobile menu toggle
+      var toggle = document.getElementById('navToggle');
+      var links = document.getElementById('navLinks');
+
+      if (toggle && links) {
+        toggle.addEventListener('click', function () {
+          var isOpen = links.classList.toggle('open');
+          toggle.classList.toggle('active');
+          toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+
+        // Close mobile menu when a link is clicked
+        links.querySelectorAll('a').forEach(function (link) {
+          link.addEventListener('click', function () {
+            links.classList.remove('open');
+            toggle.classList.remove('active');
+            toggle.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
+
+      // Contact form handling
+      var form = document.getElementById('contactForm');
+      if (form) {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+
+          var name = document.getElementById('name').value.trim();
+          var email = document.getElementById('email').value.trim();
+          var org = document.getElementById('org').value.trim();
+          var message = document.getElementById('message').value.trim();
+          var method = form.querySelector('input[name="contact_method"]:checked');
+          var methodVal = method ? method.value : 'Email';
+
+          // Basic validation
+          if (!email) {
+            alert('Please enter your email address.');
+            return;
+          }
+          if (!message || message.length < 10) {
+            alert('Please describe how I can help (at least 10 characters).');
+            return;
+          }
+
+          var subject = encodeURIComponent('Inquiry from ' + (name || 'Website Visitor'));
+          var body = [];
+          if (name) body.push('Name: ' + name);
+          body.push('Email: ' + email);
+          if (org) body.push('Organization: ' + org);
+          body.push('Preferred Contact: ' + methodVal);
+          body.push('');
+          body.push(message);
+
+          var mailto = 'mailto:info@aspireconsultingpartners.com?subject=' + subject + '&body=' + encodeURIComponent(body.join('\n'));
+          window.location.href = mailto;
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>
