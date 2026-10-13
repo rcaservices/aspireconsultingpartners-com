@@ -1,0 +1,182 @@
+/* ==========================================================================
+   Aspire Consulting Partners — SuperSite overrides (domains.aspireconsultingpartners.com)
+   Appended to the END of css/themepluginlogos/themepluginlogos.css (the last
+   file RC merges into production.css). Then Reload Cache.
+   CSS-only on purpose: page templates stay on RC's defaults, so RC's
+   template upgrades keep flowing in. Source of truth lives in the
+   aspireconsultingpartners-com repo (domain-shop/).
+   Colors and font match aspireconsultingpartners.com.
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/manrope/v20/xn7gYHE41ni1AdIRggexSvfedN4.woff2) format('woff2');
+}
+
+:root {
+  --ac-bg-main: #0f172a;
+  --ac-bg-dark: #020617;
+  --ac-panel: #1e293b;
+  --ac-line: #334155;
+  --ac-cyan: #38bdf8;
+  --ac-cyan-light: #7dd3fc;
+  --ac-cyan-deep: #0ea5e9;
+  --ac-text: #cbd5e1;
+  --ac-heading: #f1f5f9;
+  --ac-muted: #94a3b8;
+  --ac-font: 'Manrope', system-ui, -apple-system, sans-serif;
+}
+
+/* Base: font everywhere; dark page body on the HOME PAGE ONLY */
+body,
+#page-wrapper h1, #page-wrapper h2, #page-wrapper h3, #page-wrapper h4 {
+  font-family: var(--ac-font) !important;
+}
+body:has(.domain-focused-homepage),
+body:has(.domain-focused-homepage) #page-container,
+body:has(.domain-focused-homepage) #page-wrapper {
+  background: var(--ac-bg-main) !important;
+  color: var(--ac-text);
+}
+.domain-focused-homepage h1,
+.domain-focused-homepage h2,
+.domain-focused-homepage h3 { color: var(--ac-heading) !important; }
+.domain-focused-homepage a { color: var(--ac-cyan); }
+.domain-focused-homepage a:hover { color: var(--ac-cyan-light); }
+
+/* Header */
+#page-header,
+#header-wrapper,
+.new-header-style {
+  background: var(--ac-bg-main) !important;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.12);
+}
+#top-header,
+.new-head-gray-bg { background: var(--ac-bg-dark) !important; }
+.new-header-style .top-header .top-nav > li,
+.new-header-style .top-header .top-nav > li a {
+  color: var(--ac-muted) !important;
+  font-family: var(--ac-font) !important;
+}
+.new-header-style .top-header .top-nav > li a:hover { color: var(--ac-cyan) !important; }
+#branding .logo-cont img { max-height: 56px; width: auto; }
+.new-header-style .currency-opt { display: none !important; }
+
+/* Primary nav */
+.new-header-style #primary-nav,
+#primary-nav {
+  background: var(--ac-bg-main) !important;
+  border-top: 1px solid rgba(56, 189, 248, 0.08);
+}
+#primary-nav .navigation > li > a {
+  font-family: var(--ac-font) !important;
+  font-weight: 600;
+  color: var(--ac-text) !important;
+  background: transparent !important;
+}
+#primary-nav .navigation > li,
+#primary-nav .navigation > li.active,
+#primary-nav .navigation > li:hover { background: transparent !important; }
+#primary-nav .navigation > li > a:hover,
+#primary-nav .navigation > li.active > a { color: var(--ac-cyan) !important; }
+#primary-nav li:has(> #websitessubmenu),
+#primary-nav li:has(> #hostingsubmenu),
+#primary-nav li:has(> #emailsubmenu),
+#primary-nav li:has(> #securitysubmenu),
+#primary-nav li:has(> a[href="/combo-offers"]) { display: none !important; }
+#domainssubmenu {
+  background: var(--ac-panel) !important;
+  border: 1px solid var(--ac-line) !important;
+}
+#domainssubmenu h3 { color: var(--ac-cyan) !important; }
+#domainssubmenu .menu-content a { color: var(--ac-heading) !important; }
+#domainssubmenu .menu-content p { color: var(--ac-muted) !important; }
+
+/* Home page */
+.new-homepage-wrapper-dark-banner {
+  background: linear-gradient(180deg, var(--ac-bg-dark) 0%, var(--ac-bg-main) 520px) !important;
+}
+.domains-homepage-container,
+.homepage-banner,
+.domain-homepage-banner { background: transparent !important; }
+.homepage-banner { height: auto !important; padding: 56px 0 40px; }
+.domain-homepage-banner h1 { font-size: 2.4rem !important; letter-spacing: -0.02em; }
+.domain-homepage-banner .subtext {
+  font-family: var(--ac-font) !important;
+  color: var(--ac-muted) !important;
+  font-size: 1.05rem;
+}
+.homepage-new-gtld-link { display: none !important; }
+#field_domains-input {
+  font-family: var(--ac-font) !important;
+  background: #fff !important;
+  color: var(--ac-bg-main) !important;
+  border: 2px solid var(--ac-cyan) !important;
+  border-radius: 999px !important;
+  padding-left: 22px !important;
+}
+.green-submit-button,
+#go_btn {
+  font-family: var(--ac-font) !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+  background: linear-gradient(135deg, var(--ac-cyan), var(--ac-cyan-deep)) !important;
+  border: none !important;
+  border-radius: 999px !important;
+  box-shadow: 0 4px 24px rgba(56, 189, 248, 0.3);
+  text-shadow: none !important;
+}
+.green-submit-button:hover,
+#go_btn:hover { box-shadow: 0 8px 32px rgba(56, 189, 248, 0.45); }
+.domains-banner-shadow { display: none !important; }
+.domain-hp-content,
+.domain-hp-free-addons { background: transparent !important; }
+.lowest-price-tlds-list li {
+  background: var(--ac-panel) !important;
+  border: 1px solid var(--ac-line) !important;
+  border-radius: 12px;
+}
+.lowest-price-tlds-list .tld-name {
+  background: transparent !important;
+  color: var(--ac-heading) !important;
+  font-family: var(--ac-font) !important;
+  font-weight: 700;
+}
+.lowest-price-tlds-list .discounted-price { color: var(--ac-cyan) !important; font-weight: 700; }
+.domain-hp-free-addons li { color: var(--ac-text) !important; }
+
+/* Buttons across cart and checkout */
+#page-wrapper .ui-button,
+#page-wrapper input[type="submit"],
+#page-wrapper button[type="submit"] {
+  font-family: var(--ac-font) !important;
+  border-radius: 999px !important;
+}
+
+/* Footer */
+#page-footer,
+#footer-wrapper,
+.new-footer-style,
+.copyright-info-wrapper {
+  background: var(--ac-bg-dark) !important;
+  color: var(--ac-muted) !important;
+  font-family: var(--ac-font) !important;
+}
+.new-footer-style h4 { color: var(--ac-heading) !important; font-family: var(--ac-font) !important; }
+.new-footer-style a { color: var(--ac-muted) !important; }
+.new-footer-style a:hover { color: var(--ac-cyan) !important; }
+.new-footer-style .footer-cols .col.two,
+.new-footer-style .footer-cols .col.three,
+.new-footer-style .footer-cols .col.misc { display: none !important; }
+
+/* Logo served from this site, not RC's image CDN (which caches logo.gif for ~8 days).
+   RC 404s on a query string here, so no cache-busting ?v=. */
+#branding .logo-cont a {
+  display: block;
+  height: 64px;
+  background: url(/ui/resellerdata/1320000_1349999/1321813/supersite2/supersite/themes/EliteGreen-ResponsiveTheme/images/logo.gif) no-repeat left center / auto 56px;
+}
+#branding .logo-cont img { visibility: hidden; }
